@@ -1,0 +1,29 @@
+
+# Default values for k8s-practice-dev.
+# Override postgres credentials!!!
+postgres:
+  adminPassword: ExampleAdminPassword
+  userPassword: ExampleUserPassword
+  replicationPassword: ExampleReplicationPassword
+
+
+# Override postgres password configuration.
+postgresql:
+  auth:
+    database: test-database
+    # Name for a custom user to create
+    username: postgres-user
+    # Set secret name that contain secretKeys
+    existingSecret: postgres-secret
+    # Just in case overriding secretKeys names to match template secret
+    secretKeys:
+      adminPasswordKey: postgres-password
+      userPasswordKey: password
+      replicationPasswordKey: replication-password
+
+# Set the service type to NodePort to be accessible for administration
+  primary:
+    service:
+      type: NodePort
+      nodePorts:
+        postgresql: 30504
