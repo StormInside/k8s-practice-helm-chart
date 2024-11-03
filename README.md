@@ -5,24 +5,24 @@
 ### Task: Organize full system on local machine with one command deployment.
 
 ## Requirements:
--[ ] Postgres + Replication
--[ ] Mongo (No replication)
--[ ] FastAPI + Mongo Caching + SqlAlchemy to Postgres
--[ ] Ingress to cluster
--[ ] Monitoring
--[ ] Create slightly customizable helm chart
--[ ] Use stateful sets for db
--[ ] Use secrets and configmaps
--[ ] Implements health checks (livenessProbe, readinessProbe)
--[ ] Resource request and limit
--[ ] Test + Deployment versions
+-[ ] Postgres + Replication<br/>
+-[ ] Mongo (No replication)<br/>
+-[ ] FastAPI + Mongo Caching + SqlAlchemy to Postgres<br/>
+-[ ] Ingress to cluster<br/>
+-[ ] Monitoring<br/>
+-[ ] Create slightly customizable helm chart<br/>
+-[ ] Use stateful sets for db<br/>
+-[ ] Use secrets and configmaps<br/>
+-[ ] Implements health checks (livenessProbe, readinessProbe)<br/>
+-[ ] Resource request and limit<br/>
+-[ ] Test + Deployment versions<br/>
 
 ## Additions:
--[ ] Container Image Optimization
--[ ] Include CI/CD Pipeline Configuration
--[ ] Provide Comprehensive Documentation
--[ ] Implement Unit and Integration Tests
--[ ] Container Security Scanning
--[ ] Set Up Horizontal Pod Autoscaling (HPA)
+-[ ] Container Image Optimization<br/>
+-[ ] Include CI/CD Pipeline Configuration<br/>
+-[ ] Provide Comprehensive Documentation<br/>
+-[ ] Implement Unit and Integration Tests<br/>
+-[ ] Container Security Scanning<br/>
+-[ ] Set Up Horizontal Pod Autoscaling (HPA)<br/>
 
 
