@@ -2,5 +2,8 @@ dependencies:
 - name: postgresql
   repository: https://charts.bitnami.com/bitnami
   version: 16.1.0
-digest: sha256:f034dad5e9d6a017bc0f3049599ecf09909a0deaf72aec0fdd265d8bb3313df5
-generated: "2024-11-03T16:57:55.3393336+02:00"
+- name: portainer
+  repository: https://portainer.github.io/k8s/
+  version: 1.0.58
+digest: sha256:21cccc5746d259d337aaa02f8c1a038f23dde5d5e2c06173de41ade497ab6a41
+generated: "2024-11-13T22:32:00.8784727+02:00"

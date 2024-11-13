@@ -46,3 +46,12 @@ postgresql:
       type: NodePort
       nodePorts:
         postgresql: 30505
+
+
+# Setup for portainer
+portainer:
+  image:
+    tag: 2.21.4
+  service:
+    type: NodePort
+    httpNodePort: 30777

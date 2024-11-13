@@ -27,3 +27,6 @@ dependencies:
   - name: postgresql
     version: 16.1.0
     repository: https://charts.bitnami.com/bitnami
+  - name: portainer
+    version: 1.0.58
+    repository: https://portainer.github.io/k8s/
