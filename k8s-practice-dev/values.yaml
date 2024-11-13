@@ -20,10 +20,29 @@ postgresql:
       adminPasswordKey: postgres-password
       userPasswordKey: password
       replicationPasswordKey: replication-password
+  backup:
+    enabled: true
+    cronjob:
+      storage:
+        size: 25Gi
 
 # Set the service type to NodePort to be accessible for administration
   primary:
+    persistence:
+      enabled: true
+      size: 24Gi
     service:
       type: NodePort
       nodePorts:
         postgresql: 30504
+
+  architecture: replication
+
+  readReplicas:
+    persistence:
+      enabled: true
+      size: 24Gi
+    service:
+      type: NodePort
+      nodePorts:
+        postgresql: 30505
