@@ -5,7 +5,7 @@
 ### Task: Organize full system on local machine with one command deployment.
 
 ## Requirements:
-- [ ] Postgres + Replication<br/>
+- [x] Postgres + Replication<br/>
 - [ ] Mongo (No replication)<br/>
 - [ ] FastAPI + Mongo Caching + SqlAlchemy to Postgres<br/>
 - [ ] Ingress to cluster<br/>
