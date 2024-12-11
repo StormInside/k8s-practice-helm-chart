@@ -55,3 +55,7 @@ portainer:
   service:
     type: NodePort
     httpNodePort: 30777
+  persistence:
+    enabled: true
+    size: 1Gi
+    accessMode: ReadWriteOnce
