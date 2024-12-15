@@ -6,8 +6,8 @@
 
 ## Requirements:
 - [x] Postgres + Replication<br/>
-- [ ] Mongo (No replication)<br/>
-- [ ] FastAPI + Mongo Caching + SqlAlchemy to Postgres<br/>
+- [ ] Redis (No replication)<br/>
+- [ ] FastAPI + Redis Caching + SqlAlchemy to Postgres<br/>
 - [ ] Ingress to cluster<br/>
 - [ ] Monitoring<br/>
 - [ ] Create slightly customizable helm chart<br/>

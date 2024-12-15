@@ -6,4 +6,4 @@ dependencies:
   repository: https://portainer.github.io/k8s/
   version: 1.0.58
 digest: sha256:21cccc5746d259d337aaa02f8c1a038f23dde5d5e2c06173de41ade497ab6a41
-generated: "2024-11-13T22:32:00.8784727+02:00"
+generated: "2024-12-15T14:43:05.7512091+02:00"

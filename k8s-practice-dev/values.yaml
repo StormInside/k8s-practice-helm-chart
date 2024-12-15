@@ -1,5 +1,21 @@
-
 # Default values for k8s-practice-dev.
+
+
+fast_api_replicas: 3
+
+fastapi:
+  image: "myorg/my-fastapi-app:latest"
+  port: 8000
+
+redis:
+  image: "redis:6.2"
+  port: 6379
+  persistence:
+    enabled: false
+    storageClass: ""
+    size: 1Gi
+
+
 # Override postgres credentials!!!
 postgres:
   adminPassword: ExampleAdminPassword
