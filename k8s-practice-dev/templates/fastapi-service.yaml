@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-fastapi
+  labels:
+    app: {{ .Release.Name }}-fastapi
+spec:
+  clusterIP: None
+  selector:
+    app: {{ .Release.Name }}-fastapi
+  ports:
+    - port: {{ .Values.fastapi.port }}
+      name: fastapi

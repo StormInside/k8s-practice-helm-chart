@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-fastapi
+  labels:
+    app: {{ .Release.Name }}-fastapi
+spec:
+  serviceName: {{ .Release.Name }}-fastapi
+  replicas: {{ .Values.fastapi.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-fastapi
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-fastapi
+    spec:
+      containers:
+      - name: fastapi
+        image: {{ .Values.fastapi.image }}
+        ports:
+          - containerPort: {{ .Values.fastapi.port }}
+        env:
+          - name: CACHE_TIMEOUT
+            value: "{{ .Values.fastapi.cache_timeout }}"
+          - name: LOG_LEVEL
+            value: "{{ .Values.fastapi.log_level }}"
+
+          - name: POSTGRES_WRITE_SERVICE
+            value: "{{ .Release.Name }}-postgresql-primary"
+          - name: POSTGRES_READ_SERVICE
+            value: "{{ .Release.Name }}-postgresql-read"
+          - name: POSTGRES_WRITE_USER
+            value: "{{ .Values.postgresql.auth.username }}"
+          - name: POSTGRES_READ_USER
+            value: "{{ .Values.postgresql.auth.username }}"
+          - name: POSTGRES_WRITE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: password
+          - name: POSTGRES_READ_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: postgres-secret
+                key: password
+          - name: POSTGRES_DATABASE
+            value: "{{ .Values.postgresql.auth.database }}"
+
+          # The redis hostname follows the pattern:
+          #   <statefulset name>-<index>.<service name>.<namespace>.svc.cluster.local
+          # For example:
+          #   mychart-redis-0.mychart-redis.default.svc.cluster.local
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: REDIS_PORT
+            value: "{{ .Values.redis.port }}"
+          - name: REDIS_SERVICE
+            value: "{{ .Release.Name }}-redis"
+          - name: REDIS_DB
+            value: "{{ .Values.fastapi.redis_db }}"
+
+
+
+
+
+
+
+

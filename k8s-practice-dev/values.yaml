@@ -1,16 +1,20 @@
 # Default values for k8s-practice-dev.
 
-
-fast_api_replicas: 3
-
 fastapi:
-  image: "myorg/my-fastapi-app:latest"
+  image: "ghcr.io/storminside/k8s-practice-fastapi-app:latest"
   port: 8000
+  redis_db: 0
+  cache_timeout: 180
+  replicas: 3
+  log_level: "debug"
+
 
 redis:
-  image: "redis:6.2"
+  image: "redis:7.4"
   port: 6379
+  run_args: []
   persistence:
+    name: redis-data
     enabled: false
     storageClass: ""
     size: 1Gi
