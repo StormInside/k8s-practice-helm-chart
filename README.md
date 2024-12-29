@@ -8,7 +8,7 @@
 - [x] Postgres + Replication<br/>
 - [x] Redis (No replication)<br/>
 - [x] FastAPI + Redis Caching + SqlAlchemy to Postgres<br/>
-- [ ] Ingress to cluster<br/>
+- [x] Ingress to cluster<br/>
 - [ ] Monitoring<br/>
 - [ ] Create slightly customizable helm chart<br/>
 - [ ] Use stateful sets for db<br/>
