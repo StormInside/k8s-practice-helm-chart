@@ -1,0 +1,3 @@
+helm dependency update
+helm install test-postgres . -f .\values.yaml
+helm upgrade test-postgres . -f .\values.yaml
