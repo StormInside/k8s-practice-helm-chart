@@ -1,15 +1,77 @@
 # Default values for k8s-practice-dev.
 
-ingress:
-  host: "k8s-practice.local"
-  path: "/"
-  pathType: "Prefix"
-  className: "nginx"
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
-    cert-manager.io/cluster-issuer: "letsencrypt-prod"
-  tls: false
-  tlsSecretName: "fastapi-tls"
+credentials:
+  # Override grafana credentials!!!
+  grafana:
+    adminUser: admin
+    adminPassword: ExampleGrafanaPassword
+  # Override postgres credentials!!!
+  postgres:
+    adminPassword: ExampleAdminPassword
+    userPassword: ExampleUserPassword
+    replicationPassword: ExampleReplicationPassword
+
+
+ingresses:
+  - name: api
+    namespace: default
+    host: "api.k8s-practice.local"
+    path: "/"
+    pathType: "Prefix"
+    serviceNameEnding: "-fastapi"
+    servicePort: 8000
+    className: "nginx"
+    annotations:
+      kubernetes.io/ingress.class: "nginx"
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    tls:
+      enabled: true
+      existingSecretName: ""          # e.g. "api-prod-tls" if you're using an existing one
+      dev:
+        createSecret: true           # If you want Helm to generate a dev secret from local files
+        secretName: "api-dev-tls"
+        certFile: "certs/api.crt"
+        keyFile: "certs/api.key"
+
+  - name: portainer
+    namespace: default
+    host: "portainer.k8s-practice.local"
+    path: "/"
+    pathType: "Prefix"
+    serviceNameEnding: "-portainer"
+    servicePort: 9000
+    className: "nginx"
+    annotations:
+      kubernetes.io/ingress.class: "nginx"
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    tls:
+      enabled: true
+      existingSecretName: ""
+      dev:
+        createSecret: true
+        secretName: "portainer-dev-tls"
+        certFile: "certs/portainer.crt"
+        keyFile: "certs/portainer.key"
+
+  - name: grafana
+    namespace: monitoring
+    host: "grafana.k8s-practice.local"
+    path: "/"
+    pathType: "Prefix"
+    serviceNameEnding: "-grafana"
+    servicePort: 80
+    className: "nginx"
+    annotations:
+      kubernetes.io/ingress.class: "nginx"
+      cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    tls:
+      enabled: true
+      existingSecretName: ""
+      dev:
+        createSecret: true
+        secretName: "grafana-dev-tls"
+        certFile: "certs/grafana.crt"
+        keyFile: "certs/grafana.key"
 
 
 fastapi:
@@ -30,13 +92,6 @@ redis:
     enabled: false
     storageClass: ""
     size: 1Gi
-
-
-# Override postgres credentials!!!
-postgres:
-  adminPassword: ExampleAdminPassword
-  userPassword: ExampleUserPassword
-  replicationPassword: ExampleReplicationPassword
 
 
 # Override postgres password configuration.
@@ -85,9 +140,22 @@ portainer:
   image:
     tag: 2.21.4
   service:
-    type: NodePort
-    httpNodePort: 30777
+    type: ClusterIP
+#    type: NodePort
+#    httpNodePort: 30777
   persistence:
     enabled: true
     size: 1Gi
     accessMode: ReadWriteOnce
+
+
+kube-prometheus-stack:
+  namespaceOverride: monitoring
+  grafana:
+    admin:
+      existingSecret: grafana-secret
+    namespaceOverride: monitoring
+  kube-state-metrics:
+    namespaceOverride: monitoring
+  prometheus-node-exporter:
+    namespaceOverride: monitoring

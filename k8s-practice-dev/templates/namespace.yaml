@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: monitoring
+  annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "-999"  # ensures this runs before other pre-install hooks
+    "helm.sh/hook-delete-policy": "before-hook-creation"

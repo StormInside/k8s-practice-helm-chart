@@ -30,3 +30,6 @@ dependencies:
   - name: portainer
     version: 1.0.58
     repository: https://portainer.github.io/k8s/
+  - name: kube-prometheus-stack
+    version: 67.5.0
+    repository: https://prometheus-community.github.io/helm-charts

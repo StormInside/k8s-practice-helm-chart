@@ -1,3 +1,26 @@
+helm repo update
 helm dependency update
+helm dependency build
 helm install test-postgres . -f .\values.yaml
 helm upgrade test-postgres . -f .\values.yaml
+
+
+openssl genrsa -out api.key 2048
+openssl req -new -key api.key -out api.csr   -subj "/CN=api.k8s-practice.local/O=MyOrg"
+openssl x509 -req -days 365 -in api.csr -signkey api.key -out api.crt
+cp api.crt /mnt/c/ALL_DEV/k8s/k8s-practice-helm-chart/k8s-practice-dev/certs/
+cp api.key /mnt/c/ALL_DEV/k8s/k8s-practice-helm-chart/k8s-practice-dev/certs/
+
+
+openssl genrsa -out portainer.key 2048
+openssl req -new -key portainer.key -out portainer.csr   -subj "/CN=portainer.k8s-practice.local/O=MyOrg"
+openssl x509 -req -days 365 -in portainer.csr -signkey portainer.key -out portainer.crt
+cp portainer.crt /mnt/c/ALL_DEV/k8s/k8s-practice-helm-chart/k8s-practice-dev/certs/
+cp portainer.key /mnt/c/ALL_DEV/k8s/k8s-practice-helm-chart/k8s-practice-dev/certs/
+
+
+openssl genrsa -out grafana.key 2048
+openssl req -new -key grafana.key -out grafana.csr   -subj "/CN=grafana.k8s-practice.local/O=MyOrg"
+openssl x509 -req -days 365 -in grafana.csr -signkey grafana.key -out grafana.crt
+cp grafana.crt /mnt/c/ALL_DEV/k8s/k8s-practice-helm-chart/k8s-practice-dev/certs/
+cp grafana.key /mnt/c/ALL_DEV/k8s/k8s-practice-helm-chart/k8s-practice-dev/certs/

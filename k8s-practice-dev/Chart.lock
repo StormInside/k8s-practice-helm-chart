@@ -5,5 +5,8 @@ dependencies:
 - name: portainer
   repository: https://portainer.github.io/k8s/
   version: 1.0.58
-digest: sha256:21cccc5746d259d337aaa02f8c1a038f23dde5d5e2c06173de41ade497ab6a41
-generated: "2024-12-15T14:43:05.7512091+02:00"
+- name: kube-prometheus-stack
+  repository: https://prometheus-community.github.io/helm-charts
+  version: 67.5.0
+digest: sha256:cee0896437f7b0fbf91f5bcb106f5ca84c8db3cdb43c0a6deb5faf1a578e3b65
+generated: "2024-12-30T09:46:43.8004728+02:00"

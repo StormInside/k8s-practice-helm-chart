@@ -1,51 +1,42 @@
+{{- range $index, $ing := .Values.ingresses }}
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}-ingress
+  name: {{ printf "%s-%s-ingress" $.Release.Name $ing.name }}
+  namespace: {{ $ing.namespace | default $.Release.Namespace }}
   labels:
-    app: {{ .Release.Name }}-fastapi
-  {{- with .Values.ingress.annotations }}
+    app: {{ printf "%s-%s" $.Release.Name $ing.name }}
   annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+    {{- if $ing.annotations }}
+    {{- toYaml $ing.annotations | nindent 4 }}
+    {{- end }}
+
 spec:
-  {{- if .Values.ingress.className }}
-  ingressClassName: {{ .Values.ingress.className }}
+  {{- if $ing.className }}
+  ingressClassName: {{ $ing.className }}
   {{- end }}
+
   rules:
-    - host: {{ .Values.ingress.host }}
+    - host: {{ $ing.host }}
       http:
         paths:
-          - path: {{ .Values.ingress.api_path }}
-            pathType: {{ .Values.ingress.pathType }}
+          - path: {{ $ing.path }}
+            pathType: {{ $ing.pathType }}
             backend:
               service:
-                name: {{ .Release.Name }}-fastapi
+                name: {{ $.Release.Name }}{{ $ing.serviceNameEnding }}
                 port:
-                  number: {{ .Values.fastapi.port }}
+                  number: {{ $ing.servicePort }}
 
-  {{- if .Values.ingress.tls }}
+  {{- if and $ing.tls.enabled (or $ing.tls.existingSecretName $ing.tls.dev.secretName) }}
   tls:
     - hosts:
-      - {{ .Values.ingress.host }}
-      secretName: {{ .Values.ingress.tlsSecretName }}
+        - {{ $ing.host }}
+      secretName: {{ if $ing.tls.existingSecretName }}
+                   {{ $ing.tls.existingSecretName }}
+                 {{ else }}
+                   {{ $ing.tls.dev.secretName }}
+                 {{ end }}
   {{- end }}
-
-
-{{/*apiVersion: networking.k8s.io/v1*/}}
-{{/*kind: Ingress*/}}
-{{/*metadata:*/}}
-{{/*  name: minimal-ingress*/}}
-{{/*spec:*/}}
-{{/*  ingressClassName: nginx*/}}
-{{/*  rules:*/}}
-{{/*    - host: k8s-practice.local*/}}
-{{/*      http:*/}}
-{{/*        paths:*/}}
-{{/*        - path: /*/}}
-{{/*          pathType: Prefix*/}}
-{{/*          backend:*/}}
-{{/*            service:*/}}
-{{/*              name: {{ .Release.Name }}-fastapi*/}}
-{{/*              port:*/}}
-{{/*                number: 8000*/}}
+{{- end }}
