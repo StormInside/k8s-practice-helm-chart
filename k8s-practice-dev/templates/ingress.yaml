@@ -12,6 +12,11 @@ metadata:
     {{- toYaml $ing.annotations | nindent 4 }}
     {{- end }}
 
+    # Conditionally add cert-manager.io/cluster-issuer:
+    {{- if and $ing.tls.enabled (or (eq $.Values.deploymentType "test") (eq $.Values.deploymentType "prod")) }}
+    cert-manager.io/cluster-issuer: "{{ if eq $.Values.deploymentType "test" }}{{ $.Values.certManager.issuers.staging }}{{ else }}{{ $.Values.certManager.issuers.production }}{{ end }}"
+    {{- end }}
+
 spec:
   {{- if $ing.className }}
   ingressClassName: {{ $ing.className }}
@@ -29,14 +34,13 @@ spec:
                 port:
                   number: {{ $ing.servicePort }}
 
-  {{- if and $ing.tls.enabled (or $ing.tls.existingSecretName $ing.tls.dev.secretName) }}
+  {{- if $ing.tls.enabled }}
   tls:
     - hosts:
         - {{ $ing.host }}
-      secretName: {{ if $ing.tls.existingSecretName }}
-                   {{ $ing.tls.existingSecretName }}
-                 {{ else }}
-                   {{ $ing.tls.dev.secretName }}
-                 {{ end }}
+      # If dev, use the dev secret we created from local files
+      # If test or prod, Cert Manager will (re)create the secret automatically
+      # but we need to provide the name of the secret to use.
+      secretName: "{{ if eq $.Values.deploymentType "dev" -}}{{ $ing.tls.dev.secretName }}{{ else if $ing.tls.existingSecretName -}}{{ $ing.tls.existingSecretName }}{{ else -}}{{ printf "%s-%s-tls" $.Release.Name $ing.name }}{{ end }}"
   {{- end }}
 {{- end }}

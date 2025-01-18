@@ -1,5 +1,13 @@
 # Default values for k8s-practice-dev.
 
+# Possible values: "dev", "test", "prod"
+deploymentType: "dev"
+
+certManager:
+  issuers:
+    staging: "letsencrypt-staging"
+    production: "letsencrypt-prod"
+
 credentials:
   # Override grafana credentials!!!
   grafana:
@@ -10,6 +18,8 @@ credentials:
     adminPassword: ExampleAdminPassword
     userPassword: ExampleUserPassword
     replicationPassword: ExampleReplicationPassword
+  # echo -n "ExamplePortainerPassword" | sha256sum
+
 
 
 ingresses:
@@ -23,7 +33,6 @@ ingresses:
     className: "nginx"
     annotations:
       kubernetes.io/ingress.class: "nginx"
-      cert-manager.io/cluster-issuer: "letsencrypt-prod"
     tls:
       enabled: true
       existingSecretName: ""          # e.g. "api-prod-tls" if you're using an existing one
@@ -43,7 +52,6 @@ ingresses:
     className: "nginx"
     annotations:
       kubernetes.io/ingress.class: "nginx"
-      cert-manager.io/cluster-issuer: "letsencrypt-prod"
     tls:
       enabled: true
       existingSecretName: ""
@@ -63,7 +71,6 @@ ingresses:
     className: "nginx"
     annotations:
       kubernetes.io/ingress.class: "nginx"
-      cert-manager.io/cluster-issuer: "letsencrypt-prod"
     tls:
       enabled: true
       existingSecretName: ""
@@ -79,7 +86,7 @@ fastapi:
   port: 8000
   redis_db: 0
   cache_timeout: 180
-  replicas: 3
+  replicas: 1
   log_level: "debug"
 
 

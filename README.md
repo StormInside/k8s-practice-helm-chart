@@ -10,9 +10,10 @@
 - [x] FastAPI + Redis Caching + SqlAlchemy to Postgres<br/>
 - [x] Ingress to cluster<br/>
 - [x] Monitoring<br/>
-- [ ] Implements health checks (livenessProbe, readinessProbe)<br/>
+- [x] Implements health checks (livenessProbe, readinessProbe)<br/>
 - [ ] Resource request and limit<br/>
-- [ ] Test + Deployment versions<br/>
+- [x] Test + Deployment versions<br/>
+- [x] Automatic certificate generation<br/>
 
 ## Additions:
 - [ ] Container Image Optimization<br/>
@@ -21,11 +22,11 @@
 - [ ] Implement Unit and Integration Tests<br/>
 - [ ] Container Security Scanning<br/>
 - [ ] Set Up Horizontal Pod Autoscaling (HPA)<br/>
-- [ ] All services passwords in secrets<br/>
+- [x] All services passwords in secrets<br/>
 - [x] Create slightly customizable helm chart<br/>
-- [ ] Use stateful sets for db<br/>
-- [ ] Use secrets and configmaps<br/>
+- [x] Use stateful sets for db<br/>
+- [x] Use secrets and configmaps<br/>
 - [x] TLS for Ingress<br/>
-- [ ] Additional monitoring<br/>]
+- [x] Additional monitoring<br/>]
 
 

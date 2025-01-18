@@ -20,6 +20,24 @@ spec:
         image: {{ .Values.fastapi.image }}
         ports:
           - containerPort: {{ .Values.fastapi.port }}
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: {{ .Values.fastapi.port }}
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: {{ .Values.fastapi.port }}
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+          successThreshold: 1
         env:
           - name: CACHE_TIMEOUT
             value: "{{ .Values.fastapi.cache_timeout }}"
