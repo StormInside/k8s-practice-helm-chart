@@ -11,7 +11,7 @@
 - [x] Ingress to cluster<br/>
 - [x] Monitoring<br/>
 - [x] Implements health checks (livenessProbe, readinessProbe)<br/>
-- [ ] Resource request and limit<br/>
+- [x] Resource request and limit<br/>
 - [x] Test + Deployment versions<br/>
 - [x] Automatic certificate generation<br/>
 

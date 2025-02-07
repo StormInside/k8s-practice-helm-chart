@@ -88,12 +88,26 @@ fastapi:
   cache_timeout: 180
   replicas: 1
   log_level: "debug"
+  resources:
+    requests:
+      memory: "100Mi"
+      cpu: "600m"
+    limits:
+      memory: "800Mi"
+      cpu: "1"
 
 
 redis:
   image: "redis:7.4"
   port: 6379
   run_args: []
+  resources:
+    requests:
+      memory: "100Mi"
+      cpu: "256Mi"
+    limits:
+      memory: "200m"
+      cpu: "512Mi"
   persistence:
     name: redis-data
     enabled: false

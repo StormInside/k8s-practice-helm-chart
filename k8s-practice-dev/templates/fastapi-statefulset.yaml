@@ -20,6 +20,13 @@ spec:
         image: {{ .Values.fastapi.image }}
         ports:
           - containerPort: {{ .Values.fastapi.port }}
+        resources:
+            requests:
+                memory: {{ .Values.fastapi.resources.requests.memory }}
+                cpu: {{ .Values.fastapi.resources.requests.cpu }}
+            limits:
+                memory: {{ .Values.fastapi.resources.limits.memory }}
+                cpu: {{ .Values.fastapi.resources.limits.cpu }}
         livenessProbe:
           httpGet:
             path: /healthz
