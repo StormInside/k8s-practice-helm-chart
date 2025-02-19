@@ -33,3 +33,6 @@ dependencies:
   - name: kube-prometheus-stack
     version: 67.5.0
     repository: https://prometheus-community.github.io/helm-charts
+  - name: metrics-server
+    version: 3.12.1
+    repository: https://kubernetes-sigs.github.io/metrics-server/

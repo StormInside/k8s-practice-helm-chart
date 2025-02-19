@@ -86,28 +86,33 @@ fastapi:
   port: 8000
   redis_db: 0
   cache_timeout: 180
-  replicas: 1
   log_level: "debug"
   resources:
     requests:
       memory: "100Mi"
-      cpu: "600m"
+      cpu: "100m"
     limits:
       memory: "800Mi"
       cpu: "1"
+  replicas: 1 # If autoscaling is enabled, this value will be starting point for autoscaler
+  autoscaling:
+    enabled: true
+    minReplicas: 1
+    maxReplicas: 10
+    targetCPUUtilizationPercentage: 60
 
-
+# Each redis instance is connected to a single FastAPI instance
 redis:
   image: "redis:7.4"
   port: 6379
   run_args: []
   resources:
     requests:
-      memory: "100Mi"
-      cpu: "256Mi"
+      memory: "256Mi"
+      cpu: "100m"
     limits:
-      memory: "200m"
-      cpu: "512Mi"
+      memory: "512Mi"
+      cpu: "200m"
   persistence:
     name: redis-data
     enabled: false
@@ -180,3 +185,8 @@ kube-prometheus-stack:
     namespaceOverride: monitoring
   prometheus-node-exporter:
     namespaceOverride: monitoring
+
+metrics-server:
+  args:
+    - --kubelet-insecure-tls
+    - --kubelet-preferred-address-types=InternalIP,Hostname,ExternalIP

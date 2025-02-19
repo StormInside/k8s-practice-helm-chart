@@ -1,8 +1,8 @@
 helm repo update
 helm dependency update
 helm dependency build
-helm install test-postgres . -f .\values.yaml
-helm upgrade test-postgres . -f .\values.yaml
+helm install test-chart . -f .\values.yaml
+helm upgrade test-chart . -f .\values.yaml
 
 
 openssl genrsa -out api.key 2048

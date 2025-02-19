@@ -21,7 +21,7 @@
 - [ ] Provide Comprehensive Documentation<br/>
 - [ ] Implement Unit and Integration Tests<br/>
 - [ ] Container Security Scanning<br/>
-- [ ] Set Up Horizontal Pod Autoscaling (HPA)<br/>
+- [x] Set Up Horizontal Pod Autoscaling (HPA)<br/>
 - [x] All services passwords in secrets<br/>
 - [x] Create slightly customizable helm chart<br/>
 - [x] Use stateful sets for db<br/>
